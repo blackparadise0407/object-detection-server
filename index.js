@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
         "Message": "Hello from server"
     })
 })
-app.use('/api', detectRoute)
+app.use('/api/v1', detectRoute)
 //HANDLE ERROR
 app.use(notFound)
 app.use(errorHandler)
