@@ -66,7 +66,7 @@ def main(argv):
                 class_ids.append(class_id)
 
     indexes = cv2.dnn.NMSBoxes(boxes, confidences, 0.2, 0.4)
-
+    output_label = ""
     if len(indexes) > 0:
         for i in indexes.flatten():
             x, y, w, h = boxes[i]
@@ -88,11 +88,14 @@ def main(argv):
                 img, box_coords[0], box_coords[1], color, cv2.FILLED)
             cv2.putText(img, text, (text_offset_x, text_offset_y),
                         font, fontScale=font_scale, color=(0, 0, 0), thickness=1)
-
+            output_label = text
     head, tail = os.path.split(argument)
     fileName = "out_"+tail
-    print(fileName)
+    print(fileName, output_label)
     cv2.imwrite(os.path.join(OUTPUT_PATH, fileName), img)
+    location = "D:\\playground\\ml\\dogbreeds\\server\\public\\uploads"
+    removePath = os.path.join(location, argument)
+    os.remove(removePath)
     cv2.destroyAllWindows()
 
 
